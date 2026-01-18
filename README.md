@@ -1,17 +1,28 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# Core Contracts - BNPL Protocol
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
-
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+A decentralized Buy Now Pay Later (BNPL) protocol built on Ethereum and Optimism. This repository contains the core smart contracts for managing BNPL transactions, credit management, liquidity pools, and default handling.
 
 ## Project Overview
 
-This example project includes:
+This project implements a comprehensive BNPL protocol with the following core components:
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
+- **BNPLCore**: Main orchestrator contract handling BNPL creation, merchant payouts, and repayments
+- **CreditManager**: Manages user credit limits and KYC verification
+- **LiquidityPool**: Handles liquidity provision and management
+- **DefaultManager**: Manages default scenarios and recovery processes
+- **HCSLogger**: Hedera Consensus Service integration for transaction logging
+
+## Features
+
+- Secure BNPL transaction processing with repayment windows
+- Credit limit management with KYC integration
+- Liquidity pool management for merchant payouts
+- Default handling and recovery mechanisms
+- Protocol fee management
+- Reentrancy protection and access control
+- Foundry-compatible Solidity unit tests
 - TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+- Support for multiple networks including Optimism and Sepolia
 
 ## Usage
 

@@ -1,7 +1,28 @@
 {
   "name": "core-contracts",
   "version": "1.0.0",
+  "description": "Core smart contracts for BNPL (Buy Now Pay Later) protocol",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/payfrontline/core-contracts.git"
+  },
+  "keywords": [
+    "bnpl",
+    "defi",
+    "ethereum",
+    "smart-contracts",
+    "optimism",
+    "credit"
+  ],
+  "author": "0xhashrebel",
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "test:solidity": "hardhat test solidity",
+    "test:mocha": "hardhat test mocha"
+  },
   "dependencies": {
     "@nomicfoundation/hardhat-ethers": "^4.0.4",
     "@nomicfoundation/hardhat-ignition": "^3.0.6",
