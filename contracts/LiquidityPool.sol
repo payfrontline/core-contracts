@@ -192,4 +192,28 @@ contract LiquidityPool is Ownable, ReentrancyGuard {
     function getPoolBalance() external view returns (uint256) {
         return paymentToken.balanceOf(address(this));
     }
+
+    /**
+     * @notice Get pool utilization statistics
+     * @return utilizationBps Utilization in basis points (10000 = 100%)
+     * @return availableLiquidity Available liquidity amount
+     * @return totalLiquidity Total liquidity amount
+     * @return outstandingCredit Outstanding credit amount
+     */
+    function getPoolStats() external view returns (
+        uint256 utilizationBps,
+        uint256 availableLiquidity,
+        uint256 totalLiquidity_,
+        uint256 outstandingCredit_
+    ) {
+        totalLiquidity_ = totalLiquidity;
+        outstandingCredit_ = outstandingCredit;
+        availableLiquidity = totalLiquidity > outstandingCredit ? totalLiquidity - outstandingCredit : 0;
+        
+        if (totalLiquidity > 0) {
+            utilizationBps = (outstandingCredit * 10000) / totalLiquidity;
+        } else {
+            utilizationBps = 0;
+        }
+    }
 }

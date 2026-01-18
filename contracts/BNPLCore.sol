@@ -342,4 +342,29 @@ contract BNPLCore is Ownable, ReentrancyGuard {
 
         return true;
     }
+
+    /**
+     * @notice Check if a BNPL is overdue
+     * @param bnplId BNPL transaction ID
+     * @return True if BNPL is overdue
+     */
+    function isBNPLOverdue(uint256 bnplId) external view returns (bool) {
+        BNPL memory bnpl = bnpls[bnplId];
+        if (bnpl.user == address(0)) return false;
+        if (bnpl.isRepaid) return false;
+        return block.timestamp > bnpl.dueDate;
+    }
+
+    /**
+     * @notice Get time remaining until BNPL due date
+     * @param bnplId BNPL transaction ID
+     * @return Time remaining in seconds (0 if overdue or repaid)
+     */
+    function getTimeUntilDue(uint256 bnplId) external view returns (uint256) {
+        BNPL memory bnpl = bnpls[bnplId];
+        if (bnpl.user == address(0)) return 0;
+        if (bnpl.isRepaid) return 0;
+        if (block.timestamp >= bnpl.dueDate) return 0;
+        return bnpl.dueDate - block.timestamp;
+    }
 }

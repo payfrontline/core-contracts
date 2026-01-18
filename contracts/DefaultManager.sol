@@ -186,6 +186,28 @@ contract DefaultManager is Ownable {
         }
         return processed;
     }
+
+    /**
+     * @notice Check if a BNPL is overdue without processing default
+     * @param user Address of the user
+     * @param bnplId BNPL transaction ID
+     * @return True if BNPL is overdue
+     * @return Days overdue (0 if not overdue)
+     */
+    function isBNPLOverdue(address /* user */, uint256 bnplId) external view returns (bool, uint256) {
+        (bool exists, uint256 dueDate, , bool isRepaid) = 
+            IBNPLCore(bnplCore).getBNPLDetails(bnplId);
+
+        if (!exists || isRepaid) return (false, 0);
+
+        uint256 currentTime = block.timestamp;
+        uint256 gracePeriodEnd = dueDate + (gracePeriodDays * 1 days);
+        
+        if (currentTime < gracePeriodEnd) return (false, 0);
+
+        uint256 daysOverdue = (currentTime - gracePeriodEnd) / 1 days;
+        return (true, daysOverdue);
+    }
 }
 
 /**

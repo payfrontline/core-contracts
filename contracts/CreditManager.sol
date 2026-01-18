@@ -212,4 +212,16 @@ contract CreditManager is Ownable {
         if (_hasActiveBNPL[user]) return false;
         return getAvailableCredit(user) >= amount;
     }
+
+    /**
+     * @notice Get credit utilization percentage for a user
+     * @param user Address of the user
+     * @return Utilization percentage (0-10000, where 10000 = 100%)
+     */
+    function getCreditUtilization(address user) external view returns (uint256) {
+        uint256 limit = _creditLimits[user];
+        if (limit == 0) return 0;
+        uint256 used = _usedCredit[user];
+        return (used * 10000) / limit;
+    }
 }
